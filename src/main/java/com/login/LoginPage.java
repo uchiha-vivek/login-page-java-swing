@@ -1,9 +1,11 @@
 package com.login;
 
  
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.security.Security;
 import java.util.HashMap;
 
 import javax.swing.Action;
@@ -61,9 +63,38 @@ public class LoginPage implements Action {
     }
 
     @Override
-    public void actionPerformed(ActionEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+    public void actionPerformed(ActionEvent e) {
+          if(e.getSource() == resetButton){
+            userIdField.setText("");
+            passwordField.setText("");
+            System.out.println("Reset successfull");
+          }
+          
+          if(e.getSource() == loginButton ){
+            String userID = userIdField.getText();
+            String password = String.valueOf(passwordField.getPassword());
+            if(loginInfo.containsKey(userID)){
+                if(loginInfo.get(userID).equals(password) ){
+                    messageLabel.setForeground(Color.green);
+                    messageLabel.setText("Login sucessfull");
+                    frame.dispose();
+                    Welcome welcome = new Welcome(userID);
+                }
+                else{
+                    messageLabel.setForeground(Color.red);
+                    messageLabel.setText("WRONG PASSWORD");
+                }
+            }else {
+                messageLabel.setForeground(Color.red);
+                messageLabel.setText("Wrong Username");
+            }
+            System.out.println(userID);
+            System.out.println(password);
+            
+
+
+          } 
+
     }
 
     @Override
